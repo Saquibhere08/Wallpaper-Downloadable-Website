@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#10110f" />
+  <meta name="description" content="Discover and download beautiful wallpapers for every screen. Curated by WallsPaper." />
+  <title>WallsPaper — Find your next favorite</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#home" aria-label="WallsPaper home"><span class="brand-mark">W<span>.</span></span><span>WallsPaper</span></a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a class="nav-link active" href="#explore">Explore</a>
+      <a class="nav-link" href="#collections">Collections</a>
+      <a class="nav-link" href="#about">About</a>
+    </nav>
+    <div class="top-actions">
+      <button class="saved-link" id="savedToggle" aria-pressed="false"><span class="heart-icon">♡</span><span>Saved</span><span class="saved-count" id="savedCount">0</span></button>
+      <button class="menu-button" id="menuButton" aria-label="Open menu" aria-expanded="false">☰</button>
+      <a class="submit-button" href="#explore">Find a wallpaper <span>↗</span></a>
+    </div>
+  </header>
+
+  <main id="home">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="eyebrow-dot"></span> A little more you, every day</div>
+        <h1 id="hero-title">Make your screen<br />feel like <em>somewhere.</em></h1>
+        <p>Thoughtfully picked wallpapers for the places your eyes go a thousand times a day.</p>
+        <a href="#explore" class="hero-cta">Explore the collection <span>↓</span></a>
+        <div class="hero-note"><span class="avatar-stack"><i>✦</i><i>◉</i><i>⌁</i></span><span><strong>Made for your screen</strong><br />Free downloads · Fresh finds weekly</span></div>
+      </div>
+      <div class="hero-art" aria-label="Featured mountain wallpaper">
+        <div class="hero-image" id="heroImage"></div>
+        <div class="hero-image-shade"></div>
+        <div class="hero-card-meta"><span class="meta-label">WALLPAPER OF THE DAY</span><strong id="heroTitle">Quiet mornings</strong><span id="heroByline">by A. Rivera <b>·</b> 4K</span></div>
+        <button class="hero-save" id="heroSave" aria-label="Save Quiet mornings wallpaper">♡</button>
+        <div class="hero-controls"><button id="heroPrev" aria-label="Previous featured wallpaper">←</button><button id="heroNext" aria-label="Next featured wallpaper">→</button></div>
+        <div class="floating-tag">✦&nbsp; 24 new this week</div>
+      </div>
+      <div class="hero-index"><span id="heroCurrent">01</span><i></i><span id="heroTotal">04</span></div>
+    </section>
+
+    <section class="collection" id="explore">
+      <div class="section-head">
+        <div><div class="eyebrow section-eyebrow">THE WALLPAPER LIBRARY</div><h2>Find your <em>mood.</em></h2></div>
+        <div class="collection-actions"><button class="surprise-button" id="surpriseButton"><span>✦</span> Surprise me</button><div class="search-wrap"><span aria-hidden="true">⌕</span><input id="searchInput" type="search" placeholder="Search titles, creators, categories" aria-label="Search wallpapers" /><kbd>⌘ K</kbd></div></div>
+      </div>
+      <div class="filter-row" id="collections">
+        <div class="filters" role="group" aria-label="Filter by category" id="categoryFilters">
+          <button class="filter active" data-category="All">All wallpapers <span>12</span></button>
+          <button class="filter" data-category="Nature">Nature <span>05</span></button>
+          <button class="filter" data-category="Architecture">Architecture <span>03</span></button>
+          <button class="filter" data-category="Abstract">Abstract <span>02</span></button>
+          <button class="filter" data-category="Minimal">Minimal <span>02</span></button>
+        </div>
+        <label class="sort-label">Sort by <select id="sortSelect" aria-label="Sort wallpapers"><option value="featured">Featured</option><option value="newest">Newest</option><option value="popular">Most loved</option></select><span>⌄</span></label>
+      </div>
+      <div class="results-line"><span id="resultCount">Showing 8 of 12 wallpapers</span><span>Curated for every screen size <b>✦</b></span></div>
+      <div class="wallpaper-grid" id="wallpaperGrid" aria-live="polite"></div>
+      <div class="empty-state" id="emptyState" hidden><span>⌕</span><h3>No wallpapers found</h3><p>Try another search or choose a different category.</p><button id="clearFilters">Clear filters</button></div>
+      <div class="load-more-wrap"><button class="load-more" id="loadMore">Show more wallpapers <span>↓</span></button></div>
+    </section>
+
+    <section class="banner" id="about">
+      <div class="banner-spark">✳</div><div><div class="eyebrow">A NOTE FROM US</div><h2>Your screen is a place.<br /><em>Make it yours.</em></h2></div><p>WallsPaper is a small, considered corner of the internet for images worth coming back to. Pick one that feels like you.</p><a href="#explore" aria-label="Browse wallpapers">↗</a>
+    </section>
+  </main>
+  <footer><a class="brand footer-brand" href="#home"><span class="brand-mark">W<span>.</span></span><span>WallsPaper</span></a><span>Good things for your screens. <span class="footer-heart">♥</span></span><span>© 2025 WallsPaper</span></footer>
+
+  <div class="modal" id="wallpaperModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-backdrop" data-close="true"></div><div class="modal-panel"><button class="modal-close" id="modalClose" aria-label="Close preview">×</button><div class="modal-image" id="modalImage"></div><div class="modal-details"><div><span class="eyebrow" id="modalCategory">NATURE</span><h2 id="modalTitle">Wallpaper title</h2><p id="modalByline">by creator · 4K</p></div><div class="modal-actions"><button class="modal-save" id="modalSave">♡ Save</button><a class="download-button" id="downloadButton" href="#" target="_blank" rel="noopener">Download <span>↓</span></a></div></div><p class="download-note">Opens the original image in a new tab. Save it from your browser to use as a wallpaper.</p></div>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="../js/app.js"></script>
+</body>
+</html>
