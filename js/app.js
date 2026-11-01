@@ -14,7 +14,9 @@ const wallpapers = [
 ];
 const imageUrl=(photo,width=900)=>`https://images.unsplash.com/${photo}?auto=format&fit=crop&w=${width}&q=85`;
 const grid=document.querySelector('#wallpaperGrid'), searchInput=document.querySelector('#searchInput'), resultCount=document.querySelector('#resultCount'), emptyState=document.querySelector('#emptyState');
-let category='All', query='', sort='featured', saved=new Set(JSON.parse(localStorage.getItem('wallspaper-saved')||'[]')), activeWallpaper=null, toastTimer, visibleCount=8, featuredIndex=0;
+const validCategories=['All','Nature','Architecture','Abstract','Minimal'];
+const requestedCategory=new URLSearchParams(location.search).get('category');
+let category=validCategories.includes(requestedCategory)?requestedCategory:'All', query='', sort='featured', saved=new Set(JSON.parse(localStorage.getItem('wallspaper-saved')||'[]')), activeWallpaper=null, toastTimer, visibleCount=8, featuredIndex=0;
 const featuredIds=['quiet-mornings','somewhere-slow','blue-hour','open-air'];
 
 function render(){
@@ -40,6 +42,7 @@ function closeModal(){const modal=document.querySelector('#wallpaperModal');moda
 function syncModalSave(){const button=document.querySelector('#modalSave');button.classList.toggle('saved',saved.has(activeWallpaper?.id));button.innerHTML=saved.has(activeWallpaper?.id)?'♥ Saved':'♡ Save';}
 function showFeatured(index){featuredIndex=(index+featuredIds.length)%featuredIds.length;const w=wallpapers.find(item=>item.id===featuredIds[featuredIndex]);document.querySelector('#heroImage').style.backgroundImage=`url('${imageUrl(w.photo,1400)}')`;document.querySelector('#heroTitle').textContent=w.title;document.querySelector('#heroByline').innerHTML=`by ${w.creator} <b>·</b> 4K`;document.querySelector('#heroCurrent').textContent=String(featuredIndex+1).padStart(2,'0');const save=document.querySelector('#heroSave');save.dataset.id=w.id;save.classList.toggle('saved',saved.has(w.id));save.textContent=saved.has(w.id)?'♥':'♡';save.setAttribute('aria-label',`${saved.has(w.id)?'Remove saved':'Save'} ${w.title} wallpaper`);}
 
+document.querySelectorAll('.filter').forEach(button=>button.classList.toggle('active',button.dataset.category===category));
 document.querySelector('#categoryFilters').addEventListener('click',e=>{const button=e.target.closest('[data-category]');if(!button)return;category=button.dataset.category;document.querySelectorAll('.filter').forEach(b=>b.classList.toggle('active',b===button));render();});
 searchInput.addEventListener('input',()=>{query=searchInput.value.trim().toLowerCase();render();});
 document.querySelector('#sortSelect').addEventListener('change',e=>{sort=e.target.value;render();});
@@ -56,6 +59,4 @@ document.querySelector('#modalSave').addEventListener('click',()=>toggleSaved(ac
 document.querySelector('#modalClose').addEventListener('click',closeModal);
 document.querySelector('#wallpaperModal').addEventListener('click',e=>{if(e.target.dataset.close)closeModal();});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();searchInput.focus();}});
-document.querySelector('#menuButton').addEventListener('click',e=>{const open=document.querySelector('.main-nav').classList.toggle('open');e.currentTarget.setAttribute('aria-expanded',open);});
-document.querySelectorAll('.main-nav a').forEach(a=>a.addEventListener('click',()=>{document.querySelector('.main-nav').classList.remove('open');document.querySelector('#menuButton').setAttribute('aria-expanded','false');}));
 render();showFeatured(0);

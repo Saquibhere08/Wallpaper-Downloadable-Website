@@ -4,10 +4,10 @@ An interactive wallpaper gallery built with HTML, CSS, and JavaScript.
 
 ## Project structure
 
-- `html/` — page markup
+- `html/` — separate Explore (`index.html`), Collections (`collections.html`), and About (`about.html`) pages
 - `css/` — styles
 - `js/` — gallery interactions
-- `index.html` — root entry point for GitHub Pages
+- `index.html` — root entry point for GitHub Pages; redirects to the Explore page
 
 ## Run locally
 
